@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 3.25.1)
 project(my-rust-project)
 
-add_executable(my-rust-project cpp/src/main.cpp)
+add_executable(my-rust-project
+    cpp/src/main.cpp
+    cpp/src/crypto/hashing.cpp)
 
-# Enable ExternalProject CMake module
 include(ExternalProject)
-
-# Set default ExternalProject root directory
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_BINARY_DIR}/Rust)
-
-# Add rust_sdk
 ExternalProject_Add(
     rust_sdk
     DOWNLOAD_COMMAND ""
@@ -19,11 +16,8 @@ ExternalProject_Add(
     INSTALL_COMMAND ""
     LOG_BUILD ON
 )
-
-# Create dependency of my-rust-project on rust_sdk
 add_dependencies(my-rust-project rust_sdk)
 
-# Specify my-rust-project's link libraries
 target_link_libraries(my-rust-project
     debug "${CMAKE_SOURCE_DIR}/rust/target/debug/librust_sdk.a"
     optimized "${CMAKE_SOURCE_DIR}/rust/target/release/librust_sdk.a"
