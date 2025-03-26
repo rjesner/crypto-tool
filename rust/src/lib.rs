@@ -1,19 +1,23 @@
+extern crate sha2;
+extern crate hex;
+
+use sha2::{Sha256, Digest};
+
 #[no_mangle]
-pub extern fn concat_strings(first_str: *const u8, first_len: usize, second_str: *const u8, second_len: usize) -> *mut u8 {
-    let first_slice = unsafe { std::slice::from_raw_parts(first_str, first_len) };
-    let second_slice = unsafe { std::slice::from_raw_parts(second_str, second_len) };
+pub extern fn calc_sha256(input_str: *const u8, input_len: usize) -> *mut u8 {
+    if input_str.is_null() {
+        return std::ptr::null_mut();
+    }
+    let string_slice = unsafe { std::slice::from_raw_parts(input_str, input_len) };
 
-    let mut result = Vec::with_capacity(first_len + second_len);
-    result.extend_from_slice(first_slice);
-    result.extend_from_slice(second_slice);
+    let mut hasher = Sha256::new();
+    hasher.update(string_slice);
+    let result = hasher.finalize();
 
-    let result_ptr = result.as_mut_ptr();
-    std::mem::forget(result);
+    let hex_string = hex::encode(result);
+    let mut hex_bytes = hex_string.as_bytes().to_vec();
+    let result_ptr = hex_bytes.as_mut_ptr();
+
+    std::mem::forget(hex_bytes);
     result_ptr
-}
-
-#[no_mangle]
-pub extern fn get_string_length(input_str: *const u8, str_len: usize) -> usize {
-    let slice = unsafe { std::slice::from_raw_parts(input_str, str_len) };
-    slice.len()
 }
