@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25.1)
-project(my-rust-project)
+project(crypto-tool)
 
-add_executable(my-rust-project
+add_executable(crypto-tool
     cpp/src/main.cpp
     cpp/src/crypto/hashing.cpp)
 
@@ -16,9 +16,9 @@ ExternalProject_Add(
     INSTALL_COMMAND ""
     LOG_BUILD ON
 )
-add_dependencies(my-rust-project rust_sdk)
+add_dependencies(crypto-tool rust_sdk)
 
-target_link_libraries(my-rust-project
+target_link_libraries(crypto-tool
     debug "${CMAKE_SOURCE_DIR}/rust/target/debug/librust_sdk.a"
     optimized "${CMAKE_SOURCE_DIR}/rust/target/release/librust_sdk.a"
 #    ws2_32
@@ -26,4 +26,4 @@ target_link_libraries(my-rust-project
 #    advapi32
 )
 
-set_target_properties(my-rust-project PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
+set_target_properties(crypto-tool PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED ON)
