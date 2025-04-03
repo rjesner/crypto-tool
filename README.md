@@ -1,6 +1,6 @@
 # Crypto Tool
 
-Crypto Tool is a command-line tool made by the programmer Rodrigo Jesner to calculate the CRC32 and SHA256 of ROM and ISO files. It also has an option for AES128 calculation over files as a way to encrypt/decrypt them. The project is developed using Rust and C++.
+Crypto Tool is a command-line tool made by the developer Rodrigo Jesner to calculate the CRC32 and SHA256 of ROM and ISO files. It also has an option for AES128 calculation over files as a way to encrypt/decrypt them. The project is developed using C++ and Rust.
 
 ## Plaforms
 

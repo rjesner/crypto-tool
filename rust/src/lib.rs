@@ -5,6 +5,16 @@ use sha2::{Sha256, Digest};
 
 #[no_mangle]
 pub extern fn calc_sha256(input_str: *const u8, input_len: usize) -> *mut u8 {
+    if input_len == 0 {
+        let empty_hash = Sha256::digest(b"");
+        let hex_string = hex::encode(empty_hash);
+        let mut hex_bytes = hex_string.as_bytes().to_vec();
+        let result_ptr = hex_bytes.as_mut_ptr();
+
+        std::mem::forget(hex_bytes);
+        return result_ptr;
+    }
+
     if input_str.is_null() {
         return std::ptr::null_mut();
     }

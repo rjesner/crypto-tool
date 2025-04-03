@@ -2,7 +2,9 @@
 #include <cstring>
 #include "CLI/CLI11.hpp"
 #include "crypto/hashing.hpp"
+#include "utils.hpp"
 #include <string>
+#include <memory>
 
 int main(int argc, char **argv) {
     CLI::App app("Crypto-Tool by Rodrigo Jesner");
@@ -37,7 +39,6 @@ int main(int argc, char **argv) {
                     std::cerr << "File required for CRC32 computation\n";
                     return 1;
                 }
-                std::cout << "CRC32 Flag: " << crc32_flag << " | " << "File: " << file << std::endl;
             }
 
             if (sha256_flag) {
@@ -45,7 +46,12 @@ int main(int argc, char **argv) {
                     std::cerr << "File required for SHA256 computation\n";
                     return 0;
                 }
-                std::cout << "SHA256 Flag: " << sha256_flag << " | " << "File: " << file << std::endl;
+                std::cout << "[SHA256 of File named " << file << "]" << std::endl;
+                Utils utils;
+                std::vector<uint8_t> file_content = utils.read_binary_file(file);
+                Hashing hashing;
+
+                std::cout << utils.get_string_from_vector(hashing.calc_sha256(file_content)) << std::endl;
             }
         }
         else if(aes128_gen_flag) {
