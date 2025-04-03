@@ -1,4 +1,4 @@
-#include "../../include/crypto/hashing.hpp"
+#include "crypto/hashing.hpp"
 
 std::string calc_sha256(std::string input_str) {
     const char* str = input_str.c_str();

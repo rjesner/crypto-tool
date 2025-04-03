@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
-#include "../include/CLI/CLI11.hpp"
-#include "../include/crypto/hashing.hpp"
+#include "CLI/CLI11.hpp"
+#include "crypto/hashing.hpp"
 #include <string>
 
 int main(int argc, char **argv) {

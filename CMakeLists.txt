@@ -5,6 +5,8 @@ add_executable(crypto-tool
     cpp/src/main.cpp
     cpp/src/crypto/hashing.cpp)
 
+target_include_directories(crypto-tool PUBLIC cpp/include)
+
 include(ExternalProject)
 set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_BINARY_DIR}/Rust)
 ExternalProject_Add(
